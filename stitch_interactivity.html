@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NINA | Kinetic Curator</title>
+<!-- Google Fonts: Space Grotesk & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#0000FF",
+          "background-light": "#f5f5f8",
+          "background-dark": "#0f0f23",
+        },
+        fontFamily: {
+          "display": ["Helvetica", "Arial", "sans-serif"],
+        },
+        borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+      },
+    },
+  }
+</script><style>body {
+            cursor: none;
+            overflow: hidden;
+            background-color: #FFFFFF;
+            transition: background-color 2s ease-in-out;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-cursor {
+            width: 12px;
+            height: 12px;
+            background: #2D2F2F;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+        .trail-particle {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            opacity: 0.85;
+        }
+
+        /* Kinetic Animation Logic */
+        @keyframes float-1 {
+            0%, 100% { transform: translate(5vw, 5vh); background-color: #080CFF; }
+            25% { transform: translate(75vw, 35vh); background-color: #FF007F; }
+            50% { transform: translate(50vw, 85vh); background-color: #008080; }
+            75% { transform: translate(25vw, 65vh); background-color: #A400A4; }
+        }
+        @keyframes float-2 {
+            0%, 100% { transform: translate(65vw, 10vh); background-color: #A400A4; }
+            25% { transform: translate(5vw, 45vh); background-color: #FF8C00; }
+            50% { transform: translate(35vw, 15vh); background-color: #00FF00; }
+            75% { transform: translate(55vw, 75vh); background-color: #FF00FF; }
+        }
+        @keyframes float-3 {
+            0%, 100% { transform: translate(35vw, 55vh); background-color: #FFDE00; }
+            25% { transform: translate(80vw, 5vh); background-color: #00CED1; }
+            50% { transform: translate(45vw, 30vh); background-color: #FF4500; }
+            75% { transform: translate(10vw, 20vh); background-color: #080CFF; }
+        }
+        @keyframes float-4 {
+            0%, 100% { transform: translate(45vw, 45vh); background-color: #00FF00; }
+            25% { transform: translate(10vw, 80vh); background-color: #8A2BE2; }
+            50% { transform: translate(60vw, 50vh); background-color: #FF69B4; }
+            75% { transform: translate(75vw, 15vh); background-color: #FFDE00; }
+        }
+
+        .kinetic-orb {
+            position: absolute;
+            border-radius: 9999px;
+            mix-blend-mode: normal;
+            filter: blur(0px);
+            opacity: 1;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            transition: background-color 2s ease;
+        }
+
+        .orb-workbook {
+            width: 300px;
+            height: 300px;
+            animation: float-1 25s infinite linear;
+        }
+        .orb-research {
+            width: 250px;
+            height: 250px;
+            animation: float-2 20s infinite linear;
+        }
+        .orb-deco-1 {
+            width: 370px;
+            height: 370px;
+            animation: float-3 30s infinite linear;
+        }
+        .orb-deco-2 {
+            width: 200px;
+            height: 200px;
+            animation: float-4 18s infinite linear;
+        }
+
+        /* Updated Particle Trail Animation duration to 8s */
+        @keyframes fade-out {
+            0% { opacity: 0.85; transform: scale(1); }
+            100% { opacity: 1; transform: scale(0); }
+        }
+        .trail-active {
+            animation: fade-out 8s forwards;
+        }
+        @keyframes float-5 {
+            0%, 100% { transform: translate(10vw, 10vh); background-color: #FF007F; }
+            33% { transform: translate(80vw, 60vh); background-color: #00FF00; }
+            66% { transform: translate(40vw, 20vh); background-color: #080CFF; }
+        }
+        @keyframes float-6 {
+            0%, 100% { transform: translate(85vw, 15vh); background-color: #00CED1; }
+            33% { transform: translate(20vw, 85vh); background-color: #FF8C00; }
+            66% { transform: translate(60vw, 40vh); background-color: #A400A4; }
+        }
+        @keyframes float-7 {
+            0%, 100% { transform: translate(50vw, 5vh); background-color: #FFDE00; }
+            33% { transform: translate(15vw, 45vh); background-color: #008080; }
+            66% { transform: translate(75vw, 80vh); background-color: #FF69B4; }
+        }
+        @keyframes float-8 {
+            0%, 100% { transform: translate(5vw, 70vh); background-color: #8A2BE2; }
+            33% { transform: translate(65vw, 10vh); background-color: #FF4500; }
+            66% { transform: translate(30vw, 50vh); background-color: #00FF00; }
+        }
+        @keyframes float-9 {
+            0%, 100% { transform: translate(70vw, 80vh); background-color: #080CFF; }
+            33% { transform: translate(10vw, 20vh); background-color: #FF00FF; }
+            66% { transform: translate(50vw, 60vh); background-color: #00CED1; }
+        }
+        @keyframes float-10 {
+            0%, 100% { transform: translate(40vw, 90vh); background-color: #FF8C00; }
+            33% { transform: translate(90vw, 30vh); background-color: #A400A4; }
+            66% { transform: translate(20vw, 10vh); background-color: #FFDE00; }
+        }
+        @keyframes float-11 {
+            0%, 100% { transform: translate(25vw, 25vh); background-color: #008080; }
+            33% { transform: translate(75vw, 75vh); background-color: #FF007F; }
+            66% { transform: translate(10vw, 85vh); background-color: #080CFF; }
+        }
+
+        .orb-new-1 { width: 120px; height: 120px; animation: float-5 22s infinite linear; }
+        .orb-new-2 { width: 180px; height: 180px; animation: float-6 28s infinite linear; }
+        .orb-new-3 { width: 90px; height: 90px; animation: float-7 15s infinite linear; }
+        .orb-new-4 { width: 220px; height: 220px; animation: float-8 24s infinite linear; }
+        .orb-new-5 { width: 150px; height: 150px; animation: float-9 19s infinite linear; }
+        .orb-new-6 { width: 110px; height: 110px; animation: float-10 26s infinite linear; }
+        .orb-new-7 { width: 200px; height: 200px; animation: float-11 21s infinite linear; }</style>
+</head>
+<body class="bg-white font-body text-on-surface select-none transition-colors duration-[2000ms] ease-in-out transition-all">
+<!-- TopAppBar Navigation -->
+<header class="fixed top-0 w-full z-50 bg-transparent text-[#2D2F2F] flex justify-between items-center px-8 py-6 max-w-full mx-auto">
+<a class="text-4xl font-black tracking-tighter text-[#2D2F2F] hover:text-[#080CFF] transition-colors font-['helvetica']" href="/">NINA</a>
+<nav class="hidden md:flex gap-8">
+<a class="font-['helvetica'] tracking-tighter uppercase text-[0.75rem] text-[#080CFF] font-black underline-offset-8 decoration-2 hover:opacity-100 hover:scale-105 transition-all duration-300" href="#">WORKBOOK</a>
+<a class="font-['helvetica'] tracking-tighter uppercase font-bold text-[0.75rem] text-[#2D2F2F] opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300" href="#">RESEARCH</a>
+<a class="font-['helvetica'] tracking-tighter uppercase font-bold text-[0.75rem] text-[#2D2F2F] opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300" href="#">ABOUT</a>
+<a class="font-['helvetica'] tracking-tighter uppercase font-bold text-[0.75rem] text-[#2D2F2F] opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300" href="#">CONTACT</a>
+</nav>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+<!-- Floating Orbs Layer -->
+<div class="fixed inset-0 pointer-events-none z-10" id="orb-layer">
+<div class="kinetic-orb orb-workbook">
+<span class="font-headline font-black text-white text-3xl tracking-tighter drop-shadow-lg">WORKBOOK</span>
+</div>
+<div class="kinetic-orb orb-research">
+<span class="font-headline font-black text-white text-2xl tracking-tighter drop-shadow-lg">RESEARCH</span>
+</div>
+<div class="kinetic-orb orb-deco-1"><span class="font-headline font-black text-white text-3xl tracking-tighter drop-shadow-lg">DEVELOPMENT</span></div>
+<div class="kinetic-orb orb-deco-2"><span class="font-headline font-black text-white text-[1rem] tracking-tighter drop-shadow-lg text-center px-2">INTERACTIVITY</span></div>
+<div class="kinetic-orb orb-new-1"></div><div class="kinetic-orb orb-new-2"></div><div class="kinetic-orb orb-new-3"></div><div class="kinetic-orb orb-new-4"></div><div class="kinetic-orb orb-new-5"></div><div class="kinetic-orb orb-new-6"></div><div class="kinetic-orb orb-new-7"></div></div>
+<!-- Hero Content (Centered Background Text) -->
+<div class="relative z-0 text-center pointer-events-none">
+<h1 class="text-[25vw] font-bold tracking-[-0.05em] leading-none text-[#2D2F2F] select-none uppercase" style="font-family: Helvetica, Arial, sans-serif; transform: scaleX(1.4); transform-origin: center;">
+                NINA
+            </h1>
+</div>
+<!-- Curatorial Tags -->
+<div class="absolute bottom-24 left-12 z-20 hidden lg:block">
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="w-12 h-[1px] bg-outline-variant opacity-30"></span>
+<span class="text-[10px] uppercase tracking-widest font-label text-primary">Multidisciplinary Artist</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-12 h-[1px] bg-outline-variant opacity-30"></span>
+<span class="text-[10px] uppercase tracking-widest font-label text-primary">Based in Digital Space</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 w-full z-40 bg-transparent flex justify-between items-end px-8 py-8">
+<div class="flex flex-col gap-1">
+<p class="font-['helvetica'] text-[10px] tracking-widest uppercase text-[#2D2F2F] opacity-80 hover:opacity-100">© 2024 NINA. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="flex gap-6">
+<a class="font-['helvetica'] text-[10px] tracking-widest uppercase text-gray-400 hover:text-[#080CFF] transition-colors duration-200" href="#">INSTAGRAM</a>
+<a class="font-['helvetica'] text-[10px] tracking-widest uppercase text-gray-400 hover:text-[#080CFF] transition-colors duration-200" href="#">BEHANCE</a>
+<a class="font-['helvetica'] text-[10px] tracking-widest uppercase text-gray-400 hover:text-[#080CFF] transition-colors duration-200" href="#">ARE.NA</a>
+</div>
+</footer>
+<!-- Interactive Cursor -->
+<div class="custom-cursor" id="cursor"></div>
+<!-- Cursor Trail Script -->
+<script>const cursor = document.getElementById('cursor');
+        const colours = ['#080CFF', '#A400A4', '#FFDE00', '#00FF00', '#FF007F', '#008080', '#FF8C00', '#00CED1', '#FF69B4'];
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+
+            const particle = document.createElement('div');
+            particle.className = 'trail-particle trail-active';
+            const size = Math.random() * 12 + 6;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.body.appendChild(particle);
+            
+            // Remove particle after 8 seconds to match CSS animation
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
+        });</script>
+<script>
+  (function() {
+    const bgColors = [
+      '#F0F4FF', '#FFF0F0', '#F0FFF4', '#FDF2F8', 
+      '#FFFBEB', '#F5F3FF', '#ECFEFF', '#F0FDF4', 
+      '#F8FAFC', '#FEF2F2', '#FFF7ED', '#F0FDFA'
+    ];
+    let currentIndex = 0;
+    const body = document.body;
+
+    function changeColor() {
+      const nextIndex = Math.floor(Math.random() * bgColors.length);
+      // Ensure we don't pick the same color twice in a row
+      currentIndex = nextIndex === currentIndex ? (nextIndex + 1) % bgColors.length : nextIndex;
+      body.style.backgroundColor = bgColors[currentIndex];
+    }
+
+    // Initial call
+    changeColor();
+    
+    setInterval(changeColor, 2000);
+  })();
+</script></body></html>

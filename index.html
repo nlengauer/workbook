@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full-Screen Gibberish Wireframe</title>
+  <style>
+    html, body {
+      margin: -45px;
+      padding: -10%;
+      width: 105%;
+      height: 100%;
+      overflow: scroll;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ff8b0f;
+      animation: background-change 32s infinite;
+      cursor: none;
+      scroll-snap-align: start;
+    }
+    @keyframes background-change {
+      0% { background-color: #ff8b0f; }
+      12.5% { background-color: #080CFF; }
+      25% { background-color: #A400A4; }
+      37.5% { background-color: #FFDE00; }
+      50% { background-color: #00FF00; }
+      62.5% { background-color: #FF007F; }
+      75% { background-color: #008080; }
+      87.5% { background-color: #00d5ff; }
+      100% { background-color: #ff8b0f; }
+    }
+    #cursor {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .trail-particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fade-out 6s forwards;
+      z-index: 9998;
+    }
+    @keyframes fade-out {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .gibberish {
+      font-size: 60pt;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 0.9;
+      text-align: justify;
+      white-space: pre-wrap;
+      width: 100%;
+      height: 100%;
+      overflow: clip;
+    }
+    .highlight {
+      display: inline;
+      transition: transform 0.1s ease, color 0.1s ease;      
+      text-decoration: none;
+      color: inherit;    }
+    .highlight:hover {
+      transform: scale(1.2);
+      color: #ffffff;
+      text-shadow: none; 
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
+  <div class="gibberish">
+    QT4!ẞ<span class="highlight">NINALENGAUER</span>$JK%DP2OL
+    SNC+P]FIVUSFDHAEBJKAOSPW8~
+    5B<span class="highlight">PRoJECT_1</span>VJ1ESŶZMU7#YAO4i
+    ABSKFANSPBNCBLVIWUZNMETUH
+    RŮDCq%BSVX<a href="RESEARCH.html" class="highlight">RESEARCH</a>?MZPAB 
+    8<a href="DEVELOPMENT.html" class="highlight">DEVELOPMENT</a>=XFJAL+YQO4XR
+    KA2@tY&M9$BL*D5eJSETSAKSF-X
+    ~zZ7#<a href="INTERACTIVITIES.html" class="highlight">INTERACTIVITIES</a>/QRT1]SGl1
+  </div>
+  <script>
+    const cursor = document.getElementById('cursor');
+    const colors = ['#ff8b0f', '#080CFF', '#A400A4', '#FFDE00', '#00FF00', '#FF007F', '#008080', '#00d5ff'];
+    
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = (e.clientX - 10) + 'px';
+      cursor.style.top = (e.clientY - 10) + 'px';
+      
+      const particle = document.createElement('div');
+      particle.className = 'trail-particle';
+      const size = Math.random() * 12 + 10;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = (e.clientX - size/2) + 'px';
+      particle.style.top = (e.clientY - size/2) + 'px';
+      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      
+      document.body.appendChild(particle);
+      
+      setTimeout(() => {
+        particle.remove();
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
